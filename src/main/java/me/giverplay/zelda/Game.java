@@ -81,13 +81,13 @@ public class Game extends Canvas implements Runnable {
     getBufferStrategy().show();
   }
 
-  public void start() {
+  public synchronized void start() {
     isRunning = true;
     thread = new Thread(this, "Game Loop");
     thread.start();
   }
 
-  public void stop() {
+  public synchronized void stop() {
     // Avoid death lock error
     new Thread(this::stop0, "Killer thread").start();
   }
