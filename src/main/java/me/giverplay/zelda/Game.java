@@ -1,6 +1,7 @@
 package me.giverplay.zelda;
 
 import me.giverplay.zelda.entity.Entity;
+import me.giverplay.zelda.entity.PlayerEntity;
 import me.giverplay.zelda.graphics.Spritesheet;
 
 import javax.swing.JFrame;
@@ -18,23 +19,34 @@ public class Game extends Canvas implements Runnable {
   public static final int SCREEN_HEIGHT = 220;
   public static final int SCREEN_SCALE = 3;
 
-  private Thread thread;
-  private boolean isRunning;
-
   private final List<Entity> entities = new ArrayList<>();
-  private final BufferedImage layer;
 
-  private final Spritesheet spritesheet;
+  private BufferedImage layer;
+  private Thread thread;
+
+  private Spritesheet spritesheet;
+  private PlayerEntity player;
+
+  private boolean isRunning;
 
   private Game() {
     setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
 
+    loadAssets();
+    loadEntities();
+    createWindow();
+  }
+
+  private void loadAssets() {
     layer = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
     spritesheet = new Spritesheet("/Spritesheet.png");
+  }
+
+  private void loadEntities() {
+    player = new PlayerEntity(this, 0, 0);
 
     entities.clear();
-
-    createWindow();
+    entities.add(player);
   }
 
   private void createWindow() {
@@ -147,6 +159,10 @@ public class Game extends Canvas implements Runnable {
 
   public void removeEntity(Entity entity) {
     entities.remove(entity);
+  }
+
+  public PlayerEntity getPlayer() {
+    return player;
   }
 
   public static void main(String[] args) {
