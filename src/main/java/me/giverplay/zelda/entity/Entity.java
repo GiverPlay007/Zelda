@@ -1,10 +1,14 @@
 package me.giverplay.zelda.entity;
 
+import me.giverplay.zelda.Game;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Entity {
   public static final int SIZE = 16;
+
+  protected final Game game;
 
   protected float x;
   protected float y;
@@ -13,15 +17,16 @@ public class Entity {
 
   protected BufferedImage sprite;
 
-  public Entity(float x, float y) {
-    this(x, y, null);
+  public Entity(Game game, float x, float y) {
+    this(game, x, y, null);
   }
 
-  public Entity(float x, float y, BufferedImage sprite) {
-    this(x, y, SIZE, SIZE, sprite);
+  public Entity(Game game, float x, float y, BufferedImage sprite) {
+    this(game, x, y, SIZE, SIZE, sprite);
   }
 
-  public Entity(float x, float y, int width, int height, BufferedImage sprite) {
+  public Entity(Game game, float x, float y, int width, int height, BufferedImage sprite) {
+    this.game = game;
     this.x = x;
     this.y = y;
     this.width = width;
