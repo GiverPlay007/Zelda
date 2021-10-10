@@ -1,5 +1,6 @@
 package me.giverplay.zelda;
 
+import me.giverplay.zelda.entity.Entity;
 import me.giverplay.zelda.graphics.Spritesheet;
 
 import javax.swing.JFrame;
@@ -8,6 +9,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends Canvas implements Runnable {
 
@@ -18,7 +21,9 @@ public class Game extends Canvas implements Runnable {
   private Thread thread;
   private boolean isRunning;
 
+  private final List<Entity> entities = new ArrayList<>();
   private final BufferedImage layer;
+
   private final Spritesheet spritesheet;
 
   private Game() {
@@ -26,6 +31,8 @@ public class Game extends Canvas implements Runnable {
 
     layer = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
     spritesheet = new Spritesheet("/Spritesheet.png");
+
+    entities.clear();
 
     createWindow();
   }
@@ -43,18 +50,21 @@ public class Game extends Canvas implements Runnable {
   }
 
   public void tick() {
-
+    getEntities().forEach(Entity::tick);
   }
 
   public void render() {
-    Graphics graphics = layer.getGraphics();
+    final Graphics graphics = layer.getGraphics();
     graphics.setColor(Color.GRAY);
     graphics.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    entities.forEach(entity -> entity.render(graphics));
+
     graphics.dispose();
 
-    graphics = getBufferStrategy().getDrawGraphics();
-    graphics.drawImage(layer, 0, 0, getScaledWidth(), getScaledHeight(), null);
-    graphics.dispose();
+    Graphics bsGraphics = getBufferStrategy().getDrawGraphics();
+    bsGraphics.drawImage(layer, 0, 0, getScaledWidth(), getScaledHeight(), null);
+    bsGraphics.dispose();
 
     getBufferStrategy().show();
   }
@@ -125,6 +135,18 @@ public class Game extends Canvas implements Runnable {
 
   public Spritesheet getSpritesheet() {
     return spritesheet;
+  }
+
+  public List<Entity> getEntities() {
+    return new ArrayList<>(entities);
+  }
+
+  public void addEntity(Entity entity) {
+    entities.add(entity);
+  }
+
+  public void removeEntity(Entity entity) {
+    entities.remove(entity);
   }
 
   public static void main(String[] args) {
