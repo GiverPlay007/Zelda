@@ -9,11 +9,13 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends Canvas implements Runnable {
+public class Game extends Canvas implements Runnable, KeyListener {
 
   public static final int SCREEN_WIDTH = 340;
   public static final int SCREEN_HEIGHT = 220;
@@ -35,6 +37,7 @@ public class Game extends Canvas implements Runnable {
     loadAssets();
     loadEntities();
     createWindow();
+    registerListeners();
   }
 
   private void loadAssets() {
@@ -59,6 +62,11 @@ public class Game extends Canvas implements Runnable {
 
     createBufferStrategy(3);
     frame.setVisible(true);
+  }
+
+  private void registerListeners() {
+    addKeyListener(this);
+    requestFocus();
   }
 
   public void tick() {
@@ -143,6 +151,30 @@ public class Game extends Canvas implements Runnable {
     }
 
     System.out.println("Good bye!");
+  }
+
+  private void switchKey(int key, boolean pressed) {
+    switch (key) {
+      case KeyEvent.VK_RIGHT, KeyEvent.VK_D -> player.setMovingRight(pressed);
+      case KeyEvent.VK_LEFT,  KeyEvent.VK_A -> player.setMovingLeft(pressed);
+      case KeyEvent.VK_UP,    KeyEvent.VK_W -> player.setMovingUp(pressed);
+      case KeyEvent.VK_DOWN,  KeyEvent.VK_S -> player.setMovingDown(pressed);
+    }
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+    switchKey(e.getKeyCode(), true);
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
+    switchKey(e.getKeyCode(), false);
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e) {
+
   }
 
   public Spritesheet getSpritesheet() {
