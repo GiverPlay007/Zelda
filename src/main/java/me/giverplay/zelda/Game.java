@@ -1,5 +1,7 @@
 package me.giverplay.zelda;
 
+import me.giverplay.zelda.graphics.Spritesheet;
+
 import javax.swing.JFrame;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -17,12 +19,18 @@ public class Game extends Canvas implements Runnable {
   private boolean isRunning;
 
   private final BufferedImage layer;
+  private final Spritesheet spritesheet;
 
   private Game() {
     setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
 
     layer = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
+    spritesheet = new Spritesheet("/Spritesheet.png");
 
+    createWindow();
+  }
+
+  private void createWindow() {
     JFrame frame = new JFrame("Game 01 - Zelda");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setResizable(false);
@@ -113,6 +121,10 @@ public class Game extends Canvas implements Runnable {
     }
 
     System.out.println("Good bye!");
+  }
+
+  public Spritesheet getSpritesheet() {
+    return spritesheet;
   }
 
   public static void main(String[] args) {
