@@ -4,6 +4,7 @@ import me.giverplay.zelda.Game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.function.Consumer;
 
 public class Entity {
   public static final int SIZE = 16;
@@ -42,6 +43,14 @@ public class Entity {
     if(sprite != null) {
       graphics.drawImage(sprite, getIntX(), getIntY(), width, height, null);
     }
+  }
+
+  public boolean isRemoved() {
+    return !game.hasEntity(this);
+  }
+
+  public void whenExists(Consumer<Entity> action) {
+    if(!isRemoved()) action.accept(this);
   }
 
   public double getX() {

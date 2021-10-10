@@ -70,7 +70,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
   }
 
   public void tick() {
-    getEntities().forEach(Entity::tick);
+    getEntities().forEach(entity -> entity.whenExists(Entity::tick));
   }
 
   public void render() {
@@ -183,6 +183,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
   public List<Entity> getEntities() {
     return new ArrayList<>(entities);
+  }
+
+  public boolean hasEntity(Entity entity) {
+    return entities.contains(entity);
   }
 
   public void addEntity(Entity entity) {
