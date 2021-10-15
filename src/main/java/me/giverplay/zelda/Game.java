@@ -21,6 +21,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
   public static final int SCREEN_HEIGHT = 220;
   public static final int SCREEN_SCALE = 3;
 
+  private static Game game;
+
   private final List<Entity> entities = new ArrayList<>();
 
   private BufferedImage layer;
@@ -32,6 +34,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
   private boolean isRunning;
 
   private Game() {
+    Game.game = this;
+
     setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
 
     loadAssets();
@@ -46,7 +50,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
   }
 
   private void loadEntities() {
-    player = new PlayerEntity(this, 0, 0);
+    player = new PlayerEntity(0, 0);
 
     entities.clear();
     entities.add(player);
@@ -203,6 +207,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
   public static void main(String[] args) {
     new Game().start();
+  }
+
+  public static Game getGame() {
+    return Game.game;
   }
 
   public static int getScaledWidth() {

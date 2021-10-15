@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 public class Entity {
   public static final int SIZE = 16;
 
-  protected final Game game;
+  protected static final Game game = Game.getGame();
 
   protected float x;
   protected float y;
@@ -18,16 +18,15 @@ public class Entity {
 
   protected BufferedImage sprite;
 
-  public Entity(Game game, float x, float y) {
-    this(game, x, y, null);
+  public Entity(float x, float y) {
+    this(x, y, null);
   }
 
-  public Entity(Game game, float x, float y, BufferedImage sprite) {
-    this(game, x, y, SIZE, SIZE, sprite);
+  public Entity(float x, float y, BufferedImage sprite) {
+    this(x, y, SIZE, SIZE, sprite);
   }
 
-  public Entity(Game game, float x, float y, int width, int height, BufferedImage sprite) {
-    this.game = game;
+  public Entity(float x, float y, int width, int height, BufferedImage sprite) {
     this.x = x;
     this.y = y;
     this.width = width;
