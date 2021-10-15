@@ -10,10 +10,10 @@ public class PlayerEntity extends Entity {
   private boolean movingDown;
 
   private boolean isMoving;
+  private boolean rightSided = true;
 
   private short currentSprite;
   private short currentFrame;
-  private byte direction;
 
   public PlayerEntity(int x, int y) {
     super(x, y);
@@ -23,16 +23,16 @@ public class PlayerEntity extends Entity {
   public void tick() {
     isMoving = false;
 
-    if(movingRight) {
-      isMoving = true;
-      direction = 1;
-      ++x;
-    }
-
     if(movingLeft) {
       isMoving = true;
-      direction = 0;
+      rightSided = false;
       --x;
+    }
+
+    if(movingRight) {
+      isMoving = true;
+      rightSided = true;
+      ++x;
     }
 
     if(movingUp) {
@@ -66,7 +66,12 @@ public class PlayerEntity extends Entity {
       }
     }
 
-    graphics.drawImage(PLAYER_SPRITES[currentSprite], getIntX(), getIntY(), SIZE, SIZE, null);
+    graphics.drawImage(PLAYER_SPRITES[currentSprite],
+      rightSided ? getIntX() : getIntX() + SIZE,
+      getIntY(),
+      rightSided ? SIZE : -SIZE,
+      SIZE,
+      null);
   }
 
   public boolean isMovingRight() {
