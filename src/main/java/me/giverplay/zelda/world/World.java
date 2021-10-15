@@ -19,7 +19,10 @@ public class World {
   }
 
   public void render(Graphics graphics) {
-
+    for (int index = 0; index < tiles.length; index++) {
+      Tile tile = Tile.getById(tiles[index]);
+      tile.render(graphics, index % width * Tile.SIZE, index / width * Tile.SIZE);
+    }
   }
 
   public Tile getTile(int x, int y) {
