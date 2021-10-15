@@ -3,6 +3,7 @@ package me.giverplay.zelda;
 import me.giverplay.zelda.entity.Entity;
 import me.giverplay.zelda.entity.PlayerEntity;
 import me.giverplay.zelda.graphics.Spritesheet;
+import me.giverplay.zelda.world.World;
 
 import javax.swing.JFrame;
 import java.awt.Canvas;
@@ -30,6 +31,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
   private Spritesheet spritesheet;
   private PlayerEntity player;
+  private World world;
 
   private boolean isRunning;
 
@@ -39,6 +41,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     setPreferredSize(new Dimension(getScaledWidth(), getScaledHeight()));
 
     loadAssets();
+    loadWorld();
     loadEntities();
     createWindow();
     registerListeners();
@@ -47,6 +50,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
   private void loadAssets() {
     layer = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
     spritesheet = new Spritesheet("/Spritesheet.png");
+  }
+
+  private void loadWorld() {
+    world = new World("Origin", 30, 25);
   }
 
   private void loadEntities() {
@@ -82,6 +89,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     graphics.setColor(Color.GRAY);
     graphics.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+    world.render(graphics);
     entities.forEach(entity -> entity.render(graphics));
 
     graphics.dispose();
@@ -199,6 +207,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
   public void removeEntity(Entity entity) {
     entities.remove(entity);
+  }
+
+  public World getWorld() {
+    return world;
   }
 
   public PlayerEntity getPlayer() {
