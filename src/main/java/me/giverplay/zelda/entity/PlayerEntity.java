@@ -1,5 +1,7 @@
 package me.giverplay.zelda.entity;
 
+import java.awt.Graphics;
+
 public class PlayerEntity extends Entity {
 
   private boolean movingRight;
@@ -7,16 +9,64 @@ public class PlayerEntity extends Entity {
   private boolean movingUp;
   private boolean movingDown;
 
+  private boolean isMoving;
+
+  private short currentSprite;
+  private short currentFrame;
+  private byte direction;
+
   public PlayerEntity(int x, int y) {
-    super(x, y, game.getSpritesheet().getSprite(0, 0, SIZE, SIZE));
+    super(x, y);
   }
 
   @Override
   public void tick() {
-    if(movingRight) ++x;
-    if(movingLeft) --x;
-    if(movingUp) --y;
-    if(movingDown) ++y;
+    isMoving = false;
+
+    if(movingRight) {
+      isMoving = true;
+      direction = 1;
+      ++x;
+    }
+
+    if(movingLeft) {
+      isMoving = true;
+      direction = 0;
+      --x;
+    }
+
+    if(movingUp) {
+      isMoving = true;
+      --y;
+    }
+
+    if(movingDown) {
+      isMoving = true;
+      ++y;
+    }
+
+    if (movingRight && movingLeft && !movingDown && !movingUp || movingUp && movingDown && !movingLeft && !movingRight) {
+      isMoving = false;
+    }
+  }
+
+  @Override
+  public void render(Graphics graphics) {
+    if(isMoving) {
+      ++currentFrame;
+
+      if(currentFrame > 15) {
+        currentFrame = 0;
+
+        ++currentSprite;
+
+        if(currentSprite > 3) {
+          currentSprite = 0;
+        }
+      }
+    }
+
+    graphics.drawImage(PLAYER_SPRITES[currentSprite], getIntX(), getIntY(), SIZE, SIZE, null);
   }
 
   public boolean isMovingRight() {
@@ -49,5 +99,9 @@ public class PlayerEntity extends Entity {
 
   public void setMovingDown(boolean movingDown) {
     this.movingDown = movingDown;
+  }
+
+  public boolean isMoving() {
+    return isMoving;
   }
 }

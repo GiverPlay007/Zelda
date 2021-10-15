@@ -1,6 +1,7 @@
 package me.giverplay.zelda.entity;
 
 import me.giverplay.zelda.Game;
+import me.giverplay.zelda.graphics.Spritesheet;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -10,6 +11,8 @@ public class Entity {
   public static final int SIZE = 16;
 
   protected static final Game game = Game.getGame();
+
+  protected static final BufferedImage[] PLAYER_SPRITES;
 
   protected float x;
   protected float y;
@@ -90,5 +93,15 @@ public class Entity {
 
   public void setHeight(int height) {
     this.height = height;
+  }
+
+  static {
+    Spritesheet spritesheet = game.getSpritesheet();
+
+    PLAYER_SPRITES = new BufferedImage[4];
+
+    for(int index = 0; index < 4; index++) {
+      PLAYER_SPRITES[index] = spritesheet.getSprite(SIZE * index, 0, SIZE, SIZE);
+    }
   }
 }
