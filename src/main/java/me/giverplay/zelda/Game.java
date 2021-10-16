@@ -53,7 +53,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
   }
 
   private void loadWorld() {
-    world = new World("Origin", 30, 25);
+    world = new World("Origin", 30, 20);
   }
 
   private void loadEntities() {
