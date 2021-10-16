@@ -2,6 +2,7 @@ package me.giverplay.zelda.entity;
 
 import me.giverplay.zelda.Game;
 import me.giverplay.zelda.graphics.Spritesheet;
+import me.giverplay.zelda.world.Tile;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -13,6 +14,8 @@ public class Entity {
   protected static final Game game = Game.getGame();
 
   protected static final BufferedImage[] PLAYER_SPRITES;
+
+  protected static final BufferedImage ENEMY_SPRITE;
 
   protected float x;
   protected float y;
@@ -87,6 +90,14 @@ public class Entity {
     this.y = y;
   }
 
+  public void setTileX(int x) {
+    this.x = x * Tile.SIZE;
+  }
+
+  public void setTileY(int y) {
+    this.y = y * Tile.SIZE;
+  }
+
   public void setWidth(int width) {
     this.width = width;
   }
@@ -103,5 +114,7 @@ public class Entity {
     for(int index = 0; index < 4; index++) {
       PLAYER_SPRITES[index] = spritesheet.getSprite(SIZE * index, 0, SIZE, SIZE);
     }
+
+    ENEMY_SPRITE = spritesheet.getSprite(0, 2 * SIZE, SIZE, SIZE);
   }
 }

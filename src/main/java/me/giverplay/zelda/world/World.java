@@ -1,11 +1,17 @@
 package me.giverplay.zelda.world;
 
+import me.giverplay.zelda.Game;
+import me.giverplay.zelda.entity.EnemyEntity;
+import me.giverplay.zelda.entity.Entity;
+
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class World {
+
+  private static final Game game = Game.getGame();
 
   private final String name;
   private final byte[] tiles;
@@ -41,9 +47,24 @@ public class World {
         case 0xFFFFFFFF -> tiles[index] = Tile.grass.id;
         case 0xFF000000 -> tiles[index] = Tile.stone.id;
 
+        case 0xFF0026FF -> moveEntityToIndex(game.getPlayer(), index);
+        case 0xFFFF0000 -> addIndexEntity(new EnemyEntity(), index);
+
         default -> tiles[index] = Tile.air.id;
       }
     }
+  }
+
+  private void addIndexEntity(Entity entity, int index) {
+    game.addEntity(moveEntityToIndex(entity, index));
+  }
+
+  private Entity moveEntityToIndex(Entity entity, int index) {
+    entity.setTileX(index % width);
+    entity.setTileY(index / width);
+    tiles[index] = Tile.grass.id;
+
+    return entity;
   }
 
   public void render(Graphics graphics) {

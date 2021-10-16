@@ -42,7 +42,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     loadAssets();
     loadWorld();
-    loadEntities();
     createWindow();
     registerListeners();
   }
@@ -53,14 +52,12 @@ public class Game extends Canvas implements Runnable, KeyListener {
   }
 
   private void loadWorld() {
-    world = new World("Origin", 30, 20);
-  }
-
-  private void loadEntities() {
-    player = new PlayerEntity(0, 0);
-
     entities.clear();
+
+    player = new PlayerEntity(0, 0);
     entities.add(player);
+
+    world = new World("Origin", 30, 20);
   }
 
   private void createWindow() {
