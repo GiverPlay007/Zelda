@@ -103,4 +103,12 @@ public class World {
   public int getHeight() {
     return height;
   }
+
+  public int getTileWidth() {
+    return width * TILE_SIZE;
+  }
+
+  public int getTileHeight() {
+    return height * TILE_SIZE;
+  }
 }
