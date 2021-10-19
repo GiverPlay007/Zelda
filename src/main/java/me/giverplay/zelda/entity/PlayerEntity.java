@@ -1,9 +1,15 @@
 package me.giverplay.zelda.entity;
 
 import me.giverplay.zelda.Game;
+import me.giverplay.zelda.utils.MathUtils;
 import me.giverplay.zelda.world.Camera;
+import me.giverplay.zelda.world.Tile;
+import me.giverplay.zelda.world.World;
 
 import java.awt.Graphics;
+
+import static me.giverplay.zelda.Game.SCREEN_HEIGHT;
+import static me.giverplay.zelda.Game.SCREEN_WIDTH;
 
 public class PlayerEntity extends Entity {
 
@@ -80,8 +86,10 @@ public class PlayerEntity extends Entity {
   }
 
   public void moveCamera(Camera camera) {
-    camera.setX(getIntX() - Game.SCREEN_WIDTH / 2);
-    camera.setY(getIntY() - Game.SCREEN_HEIGHT / 2);
+    World world = game.getWorld();
+
+    camera.setX(MathUtils.clamp(getIntX() - SCREEN_WIDTH / 2, 0, world.getWidth() * Tile.SIZE - SCREEN_WIDTH));
+    camera.setY(MathUtils.clamp(getIntY() - SCREEN_HEIGHT / 2, 0, world.getHeight() * Tile.SIZE - SCREEN_HEIGHT));
   }
 
   public boolean isMovingRight() {
