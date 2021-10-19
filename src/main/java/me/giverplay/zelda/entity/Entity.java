@@ -2,6 +2,7 @@ package me.giverplay.zelda.entity;
 
 import me.giverplay.zelda.Game;
 import me.giverplay.zelda.graphics.Spritesheet;
+import me.giverplay.zelda.world.Camera;
 import me.giverplay.zelda.world.Tile;
 
 import java.awt.Graphics;
@@ -44,9 +45,9 @@ public class Entity {
 
   }
 
-  public void render(Graphics graphics) {
+  public void render(Graphics graphics, Camera camera) {
     if(sprite != null) {
-      graphics.drawImage(sprite, getIntX(), getIntY(), width, height, null);
+      graphics.drawImage(sprite, camera.offsetX(getIntX()), camera.offsetY(getIntY()), width, height, null);
     }
   }
 

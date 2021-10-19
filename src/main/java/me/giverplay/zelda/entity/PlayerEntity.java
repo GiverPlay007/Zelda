@@ -1,5 +1,8 @@
 package me.giverplay.zelda.entity;
 
+import me.giverplay.zelda.Game;
+import me.giverplay.zelda.world.Camera;
+
 import java.awt.Graphics;
 
 public class PlayerEntity extends Entity {
@@ -48,10 +51,12 @@ public class PlayerEntity extends Entity {
     if (movingRight && movingLeft && !movingDown && !movingUp || movingUp && movingDown && !movingLeft && !movingRight) {
       isMoving = false;
     }
+
+    moveCamera(game.getCamera());
   }
 
   @Override
-  public void render(Graphics graphics) {
+  public void render(Graphics graphics, Camera camera) {
     if(isMoving) {
       ++currentFrame;
 
@@ -67,11 +72,16 @@ public class PlayerEntity extends Entity {
     }
 
     graphics.drawImage(PLAYER_SPRITES[currentSprite],
-      rightSided ? getIntX() : getIntX() + SIZE,
-      getIntY(),
+      camera.offsetX(rightSided ? getIntX() : getIntX() + SIZE),
+      camera.offsetY(getIntY()),
       rightSided ? SIZE : -SIZE,
       SIZE,
       null);
+  }
+
+  public void moveCamera(Camera camera) {
+    camera.setX(getIntX() - Game.SCREEN_WIDTH / 2);
+    camera.setY(getIntY() - Game.SCREEN_HEIGHT / 2);
   }
 
   public boolean isMovingRight() {

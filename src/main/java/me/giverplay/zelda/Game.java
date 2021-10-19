@@ -3,6 +3,7 @@ package me.giverplay.zelda;
 import me.giverplay.zelda.entity.Entity;
 import me.giverplay.zelda.entity.PlayerEntity;
 import me.giverplay.zelda.graphics.Spritesheet;
+import me.giverplay.zelda.world.Camera;
 import me.giverplay.zelda.world.World;
 
 import javax.swing.JFrame;
@@ -31,6 +32,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
   private Spritesheet spritesheet;
   private PlayerEntity player;
+  private Camera camera;
   private World world;
 
   private boolean isRunning;
@@ -52,6 +54,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
   }
 
   private void loadWorld() {
+    camera = new Camera();
     entities.clear();
 
     player = new PlayerEntity(0, 0);
@@ -86,8 +89,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
     graphics.setColor(Color.GRAY);
     graphics.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    world.render(graphics);
-    entities.forEach(entity -> entity.render(graphics));
+    world.render(graphics, camera);
+    entities.forEach(entity -> entity.render(graphics, camera));
 
     graphics.dispose();
 
@@ -212,6 +215,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
   public PlayerEntity getPlayer() {
     return player;
+  }
+
+  public Camera getCamera() {
+    return camera;
   }
 
   public static void main(String[] args) {

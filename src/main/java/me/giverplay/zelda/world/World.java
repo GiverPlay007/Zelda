@@ -67,10 +67,10 @@ public class World {
     return entity;
   }
 
-  public void render(Graphics graphics) {
+  public void render(Graphics graphics, Camera camera) {
     for (int index = 0; index < tiles.length; index++) {
       Tile tile = Tile.getById(tiles[index]);
-      tile.render(graphics, index % width * Tile.SIZE, index / width * Tile.SIZE);
+      tile.render(graphics, camera.offsetX(index % width * Tile.SIZE), camera.offsetY(index / width * Tile.SIZE));
     }
   }
 
