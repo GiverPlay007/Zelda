@@ -3,14 +3,14 @@ package me.giverplay.zelda.entity;
 import me.giverplay.zelda.Game;
 import me.giverplay.zelda.graphics.Spritesheet;
 import me.giverplay.zelda.world.Camera;
-import me.giverplay.zelda.world.Tile;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.function.Consumer;
 
+import static me.giverplay.zelda.Game.TILE_SIZE;
+
 public class Entity {
-  public static final int SIZE = 16;
 
   protected static final Game game = Game.getGame();
 
@@ -30,7 +30,7 @@ public class Entity {
   }
 
   public Entity(float x, float y, BufferedImage sprite) {
-    this(x, y, SIZE, SIZE, sprite);
+    this(x, y, TILE_SIZE, TILE_SIZE, sprite);
   }
 
   public Entity(float x, float y, int width, int height, BufferedImage sprite) {
@@ -92,11 +92,11 @@ public class Entity {
   }
 
   public void setTileX(int x) {
-    this.x = x * Tile.SIZE;
+    this.x = x * TILE_SIZE;
   }
 
   public void setTileY(int y) {
-    this.y = y * Tile.SIZE;
+    this.y = y * TILE_SIZE;
   }
 
   public void setWidth(int width) {
@@ -113,9 +113,9 @@ public class Entity {
     PLAYER_SPRITES = new BufferedImage[4];
 
     for(int index = 0; index < 4; index++) {
-      PLAYER_SPRITES[index] = spritesheet.getSprite(SIZE * index, 0, SIZE, SIZE);
+      PLAYER_SPRITES[index] = spritesheet.getSprite(TILE_SIZE * index, 0, TILE_SIZE, TILE_SIZE);
     }
 
-    ENEMY_SPRITE = spritesheet.getSprite(0, 2 * SIZE, SIZE, SIZE);
+    ENEMY_SPRITE = spritesheet.getSprite(0, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
 }

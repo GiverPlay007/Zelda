@@ -1,15 +1,14 @@
 package me.giverplay.zelda.entity;
 
-import me.giverplay.zelda.Game;
 import me.giverplay.zelda.utils.MathUtils;
 import me.giverplay.zelda.world.Camera;
-import me.giverplay.zelda.world.Tile;
 import me.giverplay.zelda.world.World;
 
 import java.awt.Graphics;
 
-import static me.giverplay.zelda.Game.SCREEN_HEIGHT;
 import static me.giverplay.zelda.Game.SCREEN_WIDTH;
+import static me.giverplay.zelda.Game.SCREEN_HEIGHT;
+import static me.giverplay.zelda.Game.TILE_SIZE;
 
 public class PlayerEntity extends Entity {
 
@@ -78,18 +77,18 @@ public class PlayerEntity extends Entity {
     }
 
     graphics.drawImage(PLAYER_SPRITES[currentSprite],
-      camera.offsetX(rightSided ? getIntX() : getIntX() + SIZE),
+      camera.offsetX(rightSided ? getIntX() : getIntX() + TILE_SIZE),
       camera.offsetY(getIntY()),
-      rightSided ? SIZE : -SIZE,
-      SIZE,
+      rightSided ? TILE_SIZE : -TILE_SIZE,
+      TILE_SIZE,
       null);
   }
 
   public void moveCamera(Camera camera) {
     World world = game.getWorld();
 
-    camera.setX(MathUtils.clamp(getIntX() - SCREEN_WIDTH / 2, 0, world.getWidth() * Tile.SIZE - SCREEN_WIDTH));
-    camera.setY(MathUtils.clamp(getIntY() - SCREEN_HEIGHT / 2, 0, world.getHeight() * Tile.SIZE - SCREEN_HEIGHT));
+    camera.setX(MathUtils.clamp(getIntX() - SCREEN_WIDTH / 2, 0, world.getWidth() * TILE_SIZE - SCREEN_WIDTH));
+    camera.setY(MathUtils.clamp(getIntY() - SCREEN_HEIGHT / 2, 0, world.getHeight() * TILE_SIZE - SCREEN_HEIGHT));
   }
 
   public boolean isMovingRight() {

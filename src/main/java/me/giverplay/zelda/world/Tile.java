@@ -7,8 +7,9 @@ import me.giverplay.zelda.world.tiles.StoneTile;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import static me.giverplay.zelda.Game.TILE_SIZE;
+
 public abstract class Tile {
-  public static final int SIZE = 16;
 
   private static final Tile[] tiles = new Tile[Byte.MAX_VALUE];
 
@@ -30,7 +31,7 @@ public abstract class Tile {
   }
 
   public void render(Graphics graphics, int x, int y) {
-    graphics.drawImage(this.sprite, x, y, SIZE, SIZE, null);
+    graphics.drawImage(this.sprite, x, y, TILE_SIZE, TILE_SIZE, null);
   }
 
   public static Tile getById(byte id) {

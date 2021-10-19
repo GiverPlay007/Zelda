@@ -22,6 +22,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
   public static final int SCREEN_WIDTH = 340;
   public static final int SCREEN_HEIGHT = 220;
   public static final int SCREEN_SCALE = 3;
+  public static final int TILE_SIZE = 16;
 
   private static Game game;
 

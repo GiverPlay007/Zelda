@@ -9,6 +9,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import static me.giverplay.zelda.Game.TILE_SIZE;
+
 public class World {
 
   private static final Game game = Game.getGame();
@@ -70,7 +72,7 @@ public class World {
   public void render(Graphics graphics, Camera camera) {
     for (int index = 0; index < tiles.length; index++) {
       Tile tile = Tile.getById(tiles[index]);
-      tile.render(graphics, camera.offsetX(index % width * Tile.SIZE), camera.offsetY(index / width * Tile.SIZE));
+      tile.render(graphics, camera.offsetX(index % width * TILE_SIZE), camera.offsetY(index / width * TILE_SIZE));
     }
   }
 
