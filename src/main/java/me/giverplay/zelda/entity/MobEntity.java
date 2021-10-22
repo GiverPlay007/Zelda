@@ -125,4 +125,12 @@ public class MobEntity extends Entity {
   public int getIntLastY() {
     return (int) lastY;
   }
+
+  public float getSpeed() {
+    return speed;
+  }
+
+  public void setSpeed(float speed) {
+    this.speed = speed;
+  }
 }
