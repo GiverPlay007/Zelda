@@ -11,15 +11,7 @@ import static me.giverplay.zelda.Game.TILE_SIZE;
 
 import static me.giverplay.zelda.utils.MathUtils.clamp;
 
-public class PlayerEntity extends Entity {
-
-  private boolean movingRight;
-  private boolean movingLeft;
-  private boolean movingUp;
-  private boolean movingDown;
-
-  private boolean isMoving;
-  private boolean rightSided = true;
+public class PlayerEntity extends MobEntity {
 
   private short currentSprite;
   private short currentFrame;
@@ -30,41 +22,7 @@ public class PlayerEntity extends Entity {
 
   @Override
   public void tick() {
-    isMoving = false;
-
-    int mX = 0;
-    int mY = 0;
-
-    if(movingLeft) {
-      rightSided = false;
-      --mX;
-    }
-
-    if(movingRight) {
-      rightSided = true;
-      ++mX;
-    }
-
-    if(movingUp) {
-      --mY;
-    }
-
-    if(movingDown) {
-      ++mY;
-    }
-
-    if(mX != 0 && game.getWorld().isTileFree(getIntX() + mX, getIntY())) {
-      lastX = x;
-      x += mX;
-      isMoving = true;
-    }
-
-    if(mY != 0 && game.getWorld().isTileFree(getIntX(), getIntY() + mY)) {
-      lastY = y;
-      y += mY;
-      isMoving = true;
-    }
-
+    super.tick();
     moveCamera(game.getCamera());
   }
 
@@ -97,41 +55,5 @@ public class PlayerEntity extends Entity {
 
     camera.setX(clamp(getIntX() - SCREEN_WIDTH / 2, 0, world.getTileWidth() - SCREEN_WIDTH));
     camera.setY(clamp(getIntY() - SCREEN_HEIGHT / 2, 0, world.getTileHeight() - SCREEN_HEIGHT));
-  }
-
-  public boolean isMovingRight() {
-    return movingRight;
-  }
-
-  public void setMovingRight(boolean movingRight) {
-    this.movingRight = movingRight;
-  }
-
-  public boolean isMovingLeft() {
-    return movingLeft;
-  }
-
-  public void setMovingLeft(boolean movingLeft) {
-    this.movingLeft = movingLeft;
-  }
-
-  public boolean isMovingUp() {
-    return movingUp;
-  }
-
-  public void setMovingUp(boolean movingUp) {
-    this.movingUp = movingUp;
-  }
-
-  public boolean isMovingDown() {
-    return movingDown;
-  }
-
-  public void setMovingDown(boolean movingDown) {
-    this.movingDown = movingDown;
-  }
-
-  public boolean isMoving() {
-    return isMoving;
   }
 }

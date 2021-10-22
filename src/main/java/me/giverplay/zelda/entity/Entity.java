@@ -21,11 +21,10 @@ public class Entity {
   protected float x;
   protected float y;
 
-  protected float lastX;
-  protected float lastY;
-
   protected int width;
   protected int height;
+
+  protected boolean rightSided = true;
 
   protected BufferedImage sprite;
 
@@ -51,7 +50,11 @@ public class Entity {
 
   public void render(Graphics graphics, Camera camera) {
     if(sprite != null) {
-      graphics.drawImage(sprite, camera.offsetX(getIntX()), camera.offsetY(getIntY()), width, height, null);
+      graphics.drawImage(sprite, camera.offsetX(rightSided ? getIntX() : getIntX() + TILE_SIZE),
+        camera.offsetY(getIntY()),
+        rightSided ? TILE_SIZE : -TILE_SIZE,
+        TILE_SIZE,
+        null);
     }
   }
 
@@ -109,22 +112,6 @@ public class Entity {
 
   public void setHeight(int height) {
     this.height = height;
-  }
-
-  public float getLastX() {
-    return lastX;
-  }
-
-  public float getLastY() {
-    return lastY;
-  }
-
-  public int getIntLastX() {
-    return (int) lastX;
-  }
-
-  public int getIntLastY() {
-    return (int) lastY;
   }
 
   static {
