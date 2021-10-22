@@ -86,6 +86,25 @@ public class World {
     }
   }
 
+  public boolean isTileFree(int x,int y) {
+    int x1 = x / TILE_SIZE;
+    int y1 = y / TILE_SIZE;
+
+    int x2 = (x + TILE_SIZE - 1) / TILE_SIZE;
+    int y2 = y / TILE_SIZE;
+
+    int x3 = x / TILE_SIZE;
+    int y3 = (y + TILE_SIZE - 1) / TILE_SIZE;
+
+    int x4 = (x + TILE_SIZE - 1) / TILE_SIZE;
+    int y4 = (y + TILE_SIZE - 1) / TILE_SIZE;
+
+    return getTile(x1, y1).canPassThru()
+        && getTile(x2, y2).canPassThru()
+        && getTile(x3, y3).canPassThru()
+        && getTile(x4, y4).canPassThru();
+  }
+
   public Tile getTile(int x, int y) {
     if(!isInsideWorld(x, y)) {
       return Tile.air;

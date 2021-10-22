@@ -37,4 +37,8 @@ public abstract class Tile {
   public static Tile getById(byte id) {
     return tiles[id];
   }
+
+  public boolean canPassThru() {
+    return true;
+  }
 }

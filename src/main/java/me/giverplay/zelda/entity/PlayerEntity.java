@@ -32,30 +32,37 @@ public class PlayerEntity extends Entity {
   public void tick() {
     isMoving = false;
 
+    int mX = 0;
+    int mY = 0;
+
     if(movingLeft) {
-      isMoving = true;
       rightSided = false;
-      --x;
+      --mX;
     }
 
     if(movingRight) {
-      isMoving = true;
       rightSided = true;
-      ++x;
+      ++mX;
     }
 
     if(movingUp) {
-      isMoving = true;
-      --y;
+      --mY;
     }
 
     if(movingDown) {
-      isMoving = true;
-      ++y;
+      ++mY;
     }
 
-    if (movingRight && movingLeft && !movingDown && !movingUp || movingUp && movingDown && !movingLeft && !movingRight) {
-      isMoving = false;
+    if(mX != 0 && game.getWorld().isTileFree(getIntX() + mX, getIntY())) {
+      lastX = x;
+      x += mX;
+      isMoving = true;
+    }
+
+    if(mY != 0 && game.getWorld().isTileFree(getIntX(), getIntY() + mY)) {
+      lastY = y;
+      y += mY;
+      isMoving = true;
     }
 
     moveCamera(game.getCamera());

@@ -20,6 +20,10 @@ public class Entity {
 
   protected float x;
   protected float y;
+
+  protected float lastX;
+  protected float lastY;
+
   protected int width;
   protected int height;
 
@@ -105,6 +109,22 @@ public class Entity {
 
   public void setHeight(int height) {
     this.height = height;
+  }
+
+  public float getLastX() {
+    return lastX;
+  }
+
+  public float getLastY() {
+    return lastY;
+  }
+
+  public int getIntLastX() {
+    return (int) lastX;
+  }
+
+  public int getIntLastY() {
+    return (int) lastY;
   }
 
   static {
