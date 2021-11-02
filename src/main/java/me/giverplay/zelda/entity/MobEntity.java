@@ -32,8 +32,8 @@ public class MobEntity extends Entity {
   public void tick() {
     isMoving = false;
 
-    int mX = 0;
-    int mY = 0;
+    float mX = 0;
+    float mY = 0;
 
     if(movingLeft) {
       rightSided = false;
