@@ -2,6 +2,7 @@ package me.giverplay.zelda.entity;
 
 import me.giverplay.zelda.Game;
 import me.giverplay.zelda.graphics.Spritesheet;
+import me.giverplay.zelda.utils.Rectangle;
 import me.giverplay.zelda.world.Camera;
 
 import java.awt.Graphics;
@@ -60,6 +61,14 @@ public class Entity {
 
   public boolean isRemoved() {
     return !game.hasEntity(this);
+  }
+
+  public boolean isColliding(Entity other) {
+    return getBox().overlaps(other.getBox());
+  }
+
+  public Rectangle getBox() {
+    return new Rectangle(x, y, width, height);
   }
 
   public void whenExists(Consumer<Entity> action) {
