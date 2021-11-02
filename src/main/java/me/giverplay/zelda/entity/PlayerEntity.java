@@ -18,6 +18,8 @@ public class PlayerEntity extends MobEntity {
 
   public PlayerEntity(int x, int y) {
     super(x, y);
+
+    speed = 2.0f;
   }
 
   @Override
