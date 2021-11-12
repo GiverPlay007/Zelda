@@ -67,6 +67,11 @@ public class Entity {
     return getBox().overlaps(other.getBox());
   }
 
+  public boolean isColliding(int x, int y) {
+    Rectangle rect = new Rectangle(x, y, width, height);
+    return game.getEntities().stream().anyMatch(entity -> rect.overlaps(entity.getBox()));
+  }
+
   public Rectangle getBox() {
     return new Rectangle(x, y, width, height);
   }
