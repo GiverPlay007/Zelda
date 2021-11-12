@@ -20,6 +20,7 @@ public class PlayerEntity extends MobEntity {
     super(x, y);
 
     speed = 1.5f;
+    isEntityCollider = false;
   }
 
   @Override

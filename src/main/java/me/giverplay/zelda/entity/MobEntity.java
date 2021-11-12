@@ -53,12 +53,12 @@ public class MobEntity extends Entity {
       mY += speed;
     }
 
-    if(mX != 0 && game.getWorld().isTileFree((int) (x + mX), getIntY())) {
+    if(mX != 0 && game.getWorld().isTileFree((int) (x + mX), getIntY()) && !isCollidingEntity(x + mX, y)) {
       moveX(mX);
       isMoving = true;
     }
 
-    if(mY != 0 && game.getWorld().isTileFree(getIntX(), (int) (y + mY))) {
+    if(mY != 0 && game.getWorld().isTileFree(getIntX(), (int) (y + mY)) && !isCollidingEntity(x, y + mY)) {
       moveY(mY);
       isMoving = true;
     }

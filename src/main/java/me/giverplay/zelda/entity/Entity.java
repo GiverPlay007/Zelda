@@ -26,6 +26,7 @@ public class Entity {
   protected int height;
 
   protected boolean rightSided = true;
+  protected boolean isEntityCollider = true;
 
   protected BufferedImage sprite;
 
@@ -63,13 +64,18 @@ public class Entity {
     return !game.hasEntity(this);
   }
 
-  public boolean isColliding(Entity other) {
+  public boolean isCollidingEntity(Entity other) {
     return getBox().overlaps(other.getBox());
   }
 
-  public boolean isColliding(int x, int y) {
+  public boolean isCollidingEntity(float x, float y) {
     Rectangle rect = new Rectangle(x, y, width, height);
-    return game.getEntities().stream().anyMatch(entity -> rect.overlaps(entity.getBox()));
+
+    for (Entity entity : game.getEntities()) {
+      if (isEntityCollider && entity != this && rect.overlaps(entity.getBox())) return true;
+    }
+
+    return false;
   }
 
   public Rectangle getBox() {
