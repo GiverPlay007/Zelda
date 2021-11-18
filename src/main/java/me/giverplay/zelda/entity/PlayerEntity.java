@@ -13,11 +13,8 @@ import static me.giverplay.zelda.utils.MathUtils.clamp;
 
 public class PlayerEntity extends MobEntity {
 
-  private short currentSprite;
-  private short currentFrame;
-
   public PlayerEntity(int x, int y) {
-    super(x, y);
+    super(x, y, PLAYER_SPRITE);
 
     speed = 1.5f;
     isEntityCollider = false;
@@ -31,26 +28,9 @@ public class PlayerEntity extends MobEntity {
 
   @Override
   public void render(Graphics graphics, Camera camera) {
-    if(isMoving) {
-      ++currentFrame;
-
-      if(currentFrame > 15) {
-        currentFrame = 0;
-
-        ++currentSprite;
-
-        if(currentSprite > 3) {
-          currentSprite = 0;
-        }
-      }
-    }
-
-    graphics.drawImage(PLAYER_SPRITES[currentSprite],
-      camera.offsetX(rightSided ? getIntX() : getIntX() + TILE_SIZE),
-      camera.offsetY(getIntY()),
-      rightSided ? TILE_SIZE : -TILE_SIZE,
-      TILE_SIZE,
-      null);
+    // TODO: Invert
+    // TODO: Is not Moving draw
+    sprite.draw(graphics, camera.offsetX(rightSided ? getIntX() : getIntX() + TILE_SIZE), camera.offsetY(getIntY()));
   }
 
   public void moveCamera(Camera camera) {

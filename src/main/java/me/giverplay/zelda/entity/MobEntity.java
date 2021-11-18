@@ -1,6 +1,6 @@
 package me.giverplay.zelda.entity;
 
-import java.awt.image.BufferedImage;
+import me.giverplay.zelda.graphics.Sprite;
 
 public class MobEntity extends Entity {
 
@@ -20,11 +20,11 @@ public class MobEntity extends Entity {
     super(x, y);
   }
 
-  public MobEntity(float x, float y, BufferedImage sprite) {
+  public MobEntity(float x, float y, Sprite sprite) {
     super(x, y, sprite);
   }
 
-  public MobEntity(float x, float y, int width, int height, BufferedImage sprite) {
+  public MobEntity(float x, float y, int width, int height, Sprite sprite) {
     super(x, y, width, height, sprite);
   }
 

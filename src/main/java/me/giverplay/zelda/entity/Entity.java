@@ -1,7 +1,10 @@
 package me.giverplay.zelda.entity;
 
 import me.giverplay.zelda.Game;
+import me.giverplay.zelda.graphics.AnimatedSprite;
+import me.giverplay.zelda.graphics.Sprite;
 import me.giverplay.zelda.graphics.Spritesheet;
+import me.giverplay.zelda.graphics.StaticSprite;
 import me.giverplay.zelda.utils.Rectangle;
 import me.giverplay.zelda.world.Camera;
 
@@ -15,9 +18,9 @@ public class Entity {
 
   protected static final Game game = Game.getGame();
 
-  protected static final BufferedImage[] PLAYER_SPRITES;
+  protected static final Sprite PLAYER_SPRITE;
 
-  protected static final BufferedImage ENEMY_SPRITE;
+  protected static final Sprite ENEMY_SPRITE;
 
   protected float x;
   protected float y;
@@ -28,17 +31,17 @@ public class Entity {
   protected boolean rightSided = true;
   protected boolean isEntityCollider = true;
 
-  protected BufferedImage sprite;
+  protected Sprite sprite;
 
   public Entity(float x, float y) {
     this(x, y, null);
   }
 
-  public Entity(float x, float y, BufferedImage sprite) {
+  public Entity(float x, float y, Sprite sprite) {
     this(x, y, TILE_SIZE, TILE_SIZE, sprite);
   }
 
-  public Entity(float x, float y, int width, int height, BufferedImage sprite) {
+  public Entity(float x, float y, int width, int height, Sprite sprite) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -52,11 +55,8 @@ public class Entity {
 
   public void render(Graphics graphics, Camera camera) {
     if(sprite != null) {
-      graphics.drawImage(sprite, camera.offsetX(rightSided ? getIntX() : getIntX() + TILE_SIZE),
-        camera.offsetY(getIntY()),
-        rightSided ? TILE_SIZE : -TILE_SIZE,
-        TILE_SIZE,
-        null);
+      // TODO: Invert
+      sprite.draw(graphics, camera.offsetX(rightSided ? getIntX() : getIntX() + TILE_SIZE), camera.offsetY(getIntY()));
     }
   }
 
@@ -137,12 +137,13 @@ public class Entity {
   static {
     Spritesheet spritesheet = game.getSpritesheet();
 
-    PLAYER_SPRITES = new BufferedImage[4];
+    BufferedImage[] playerSprites = new BufferedImage[4];
 
     for(int index = 0; index < 4; index++) {
-      PLAYER_SPRITES[index] = spritesheet.getSprite(TILE_SIZE * index, 0, TILE_SIZE, TILE_SIZE);
+      playerSprites[index] = spritesheet.getSprite(TILE_SIZE * index, 0, TILE_SIZE, TILE_SIZE);
     }
 
-    ENEMY_SPRITE = spritesheet.getSprite(0, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    PLAYER_SPRITE = new AnimatedSprite(playerSprites, 15);
+    ENEMY_SPRITE = new StaticSprite(spritesheet.getSprite(0, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
   }
 }
