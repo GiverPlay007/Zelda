@@ -55,8 +55,7 @@ public class Entity {
 
   public void render(Graphics graphics, Camera camera) {
     if(sprite != null) {
-      // TODO: Invert
-      sprite.draw(graphics, camera.offsetX(rightSided ? getIntX() : getIntX() + TILE_SIZE), camera.offsetY(getIntY()));
+      sprite.draw(graphics, camera.offsetX(getIntX()), camera.offsetY(getIntY()), rightSided);
     }
   }
 

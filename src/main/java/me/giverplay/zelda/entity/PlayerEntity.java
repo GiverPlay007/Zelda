@@ -7,8 +7,6 @@ import java.awt.Graphics;
 
 import static me.giverplay.zelda.Game.SCREEN_HEIGHT;
 import static me.giverplay.zelda.Game.SCREEN_WIDTH;
-import static me.giverplay.zelda.Game.TILE_SIZE;
-
 import static me.giverplay.zelda.utils.MathUtils.clamp;
 
 public class PlayerEntity extends MobEntity {
@@ -28,9 +26,8 @@ public class PlayerEntity extends MobEntity {
 
   @Override
   public void render(Graphics graphics, Camera camera) {
-    // TODO: Invert
     // TODO: Is not Moving draw
-    sprite.draw(graphics, camera.offsetX(rightSided ? getIntX() : getIntX() + TILE_SIZE), camera.offsetY(getIntY()));
+    sprite.draw(graphics, camera.offsetX(getIntX()), camera.offsetY(getIntY()), rightSided);
   }
 
   public void moveCamera(Camera camera) {
