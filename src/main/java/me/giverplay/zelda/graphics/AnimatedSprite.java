@@ -6,6 +6,8 @@ public class AnimatedSprite implements Sprite {
 
   private final BufferedImage[] sprites;
 
+  private boolean isPlaying = true;
+
   private int frames;
   private int currentFrames;
   private int index;
@@ -19,15 +21,17 @@ public class AnimatedSprite implements Sprite {
 
   @Override
   public BufferedImage getSprite() {
-    ++currentFrames;
+    if(isPlaying) {
+      ++currentFrames;
 
-    if(currentFrames >= frames) {
-      currentFrames = 0;
+      if(currentFrames >= frames) {
+        currentFrames = 0;
 
-      ++index;
+        ++index;
 
-      if(index >= sprites.length) {
-        index = 0;
+        if(index >= sprites.length) {
+          index = 0;
+        }
       }
     }
 
@@ -54,5 +58,9 @@ public class AnimatedSprite implements Sprite {
 
   public int getIndex() {
     return index;
+  }
+
+  public void setPlaying(boolean playing) {
+    isPlaying = playing;
   }
 }

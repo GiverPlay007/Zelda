@@ -1,5 +1,6 @@
 package me.giverplay.zelda.entity;
 
+import me.giverplay.zelda.graphics.AnimatedSprite;
 import me.giverplay.zelda.world.Camera;
 import me.giverplay.zelda.world.World;
 
@@ -26,7 +27,7 @@ public class PlayerEntity extends MobEntity {
 
   @Override
   public void render(Graphics graphics, Camera camera) {
-    // TODO: Is not Moving draw
+    ((AnimatedSprite) sprite).setPlaying(isMoving);
     sprite.draw(graphics, camera.offsetX(getIntX()), camera.offsetY(getIntY()), rightSided);
   }
 
