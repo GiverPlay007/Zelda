@@ -7,6 +7,6 @@ import static me.giverplay.zelda.Game.TILE_SIZE;
 
 public class GrassTile extends Tile {
   public GrassTile() {
-    super((byte) 2, Game.getGame().getSpritesheet().getSprite(TILE_SIZE, TILE_SIZE, TILE_SIZE, TILE_SIZE));
+    super((byte) 2, Game.getGame().getSpritesheet().getSubImage(TILE_SIZE, TILE_SIZE, TILE_SIZE, TILE_SIZE));
   }
 }

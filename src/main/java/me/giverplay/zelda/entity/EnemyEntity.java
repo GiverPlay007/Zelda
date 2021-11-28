@@ -1,8 +1,10 @@
 package me.giverplay.zelda.entity;
 
+import static me.giverplay.zelda.Game.TILE_SIZE;
+
 public class EnemyEntity extends MobEntity {
   public EnemyEntity(int x, int y) {
-    super(x, y, ENEMY_SPRITE);
+    super(x, y, game.getSpritesheet().getSprite(0, TILE_SIZE * 2, TILE_SIZE, TILE_SIZE));
   }
 
   public EnemyEntity() {

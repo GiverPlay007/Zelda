@@ -1,15 +1,11 @@
 package me.giverplay.zelda.entity;
 
 import me.giverplay.zelda.Game;
-import me.giverplay.zelda.graphics.AnimatedSprite;
 import me.giverplay.zelda.graphics.Sprite;
-import me.giverplay.zelda.graphics.Spritesheet;
-import me.giverplay.zelda.graphics.StaticSprite;
 import me.giverplay.zelda.utils.Rectangle;
 import me.giverplay.zelda.world.Camera;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.util.function.Consumer;
 
 import static me.giverplay.zelda.Game.TILE_SIZE;
@@ -17,10 +13,6 @@ import static me.giverplay.zelda.Game.TILE_SIZE;
 public class Entity {
 
   protected static final Game game = Game.getGame();
-
-  protected static final Sprite PLAYER_SPRITE;
-
-  protected static final Sprite ENEMY_SPRITE;
 
   protected float x;
   protected float y;
@@ -131,18 +123,5 @@ public class Entity {
 
   public void setHeight(int height) {
     this.height = height;
-  }
-
-  static {
-    Spritesheet spritesheet = game.getSpritesheet();
-
-    BufferedImage[] playerSprites = new BufferedImage[4];
-
-    for(int index = 0; index < 4; index++) {
-      playerSprites[index] = spritesheet.getSprite(TILE_SIZE * index, 0, TILE_SIZE, TILE_SIZE);
-    }
-
-    PLAYER_SPRITE = new AnimatedSprite(playerSprites, 15);
-    ENEMY_SPRITE = new StaticSprite(spritesheet.getSprite(0, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE));
   }
 }

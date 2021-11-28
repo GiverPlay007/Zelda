@@ -7,7 +7,7 @@ import static me.giverplay.zelda.Game.TILE_SIZE;
 
 public class StoneTile extends Tile {
   public StoneTile() {
-    super((byte) 1, Game.getGame().getSpritesheet().getSprite(0, TILE_SIZE, TILE_SIZE, TILE_SIZE));
+    super((byte) 1, Game.getGame().getSpritesheet().getSubImage(0, TILE_SIZE, TILE_SIZE, TILE_SIZE));
   }
 
   @Override
