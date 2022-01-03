@@ -7,9 +7,9 @@ import java.awt.Graphics;
 
 import static me.giverplay.zelda.Game.TILE_SIZE;
 
-public class EnemyEntity extends MobEntity {
+public class EnemyEntity extends LivingEntity {
   public EnemyEntity(int x, int y) {
-    super(x, y, game.getSpritesheet().getSprite(0, TILE_SIZE * 2, TILE_SIZE, TILE_SIZE, 8, 8));
+    super(x, y, 50, game.getSpritesheet().getSprite(0, TILE_SIZE * 2, TILE_SIZE, TILE_SIZE, 8, 8));
   }
 
   public EnemyEntity() {
